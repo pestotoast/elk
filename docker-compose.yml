@@ -1,0 +1,28 @@
+version: '2'
+services:
+  logstash:
+    build:
+      context: logstash/
+    command: "logstash -f /usr/share/logstash/config/logstash.conf"
+    networks: 
+      - elk
+
+  elasticsearch:
+    build: elasticsearch/
+    ports: 
+       - "9200:9200"
+    networks: 
+      - elk
+  
+  kibana:
+    build: kibana/
+    ports: 
+       - "5601:5601"
+    networks: 
+      - elk
+
+networks:
+  elk:
+    driver: bridge
+
+
